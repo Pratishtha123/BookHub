@@ -35,6 +35,29 @@ class MainActivity : AppCompatActivity() {
         val actionBarDrawerToggle=ActionBarDrawerToggle(this@MainActivity, drawerLayout, R.string.open_drawer, R.string.close_drawer)
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
+
+        navigationView.setNavigationItemSelectedListener {
+
+            when(it.itemId)
+            {
+                R.id.dashboard->{
+
+                }
+
+                R.id.favourites->{
+
+                }
+
+                R.id.profile->{
+
+                }
+
+                R.id.aboutApp->{
+
+                }
+            }
+            return@setNavigationItemSelectedListener true
+        }
     }
 
     fun setUpToolbar(){

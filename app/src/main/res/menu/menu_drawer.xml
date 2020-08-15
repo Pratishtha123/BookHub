@@ -7,14 +7,14 @@
 
     <item android:title="Favourites"
         android:icon="@drawable/ic_fav"
-        android:id="@+id/dashboard"/>
+        android:id="@+id/favourites"/>
 
     <item android:title="Profile"
         android:icon="@drawable/ic_profile"
-        android:id="@+id/dashboard"/>
+        android:id="@+id/profile"/>
 
     <item android:title="About App"
         android:icon="@drawable/ic_about"
-        android:id="@+id/dashboard"/>
+        android:id="@+id/aboutApp"/>
 
 </menu>
