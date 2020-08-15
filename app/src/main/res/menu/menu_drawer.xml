@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Dashboard"
+        android:icon="@drawable/ic_dash"
+        android:id="@+id/dashboard"/>
+
+    <item android:title="Favourites"
+        android:icon="@drawable/ic_fav"
+        android:id="@+id/dashboard"/>
+
+    <item android:title="Profile"
+        android:icon="@drawable/ic_profile"
+        android:id="@+id/dashboard"/>
+
+    <item android:title="About App"
+        android:icon="@drawable/ic_about"
+        android:id="@+id/dashboard"/>
+
+</menu>
