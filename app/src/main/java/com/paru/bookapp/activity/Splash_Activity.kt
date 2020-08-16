@@ -1,9 +1,10 @@
-package com.paru.bookapp
+package com.paru.bookapp.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.paru.bookapp.R
 
 class Splash_Activity : AppCompatActivity() {
 
