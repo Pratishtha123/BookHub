@@ -11,10 +11,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.paru.bookapp.R
 import com.paru.bookapp.activity.Description_Activity
+import com.paru.bookapp.model.Book
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-class DashboardRecyclerAdapter (val context:Context,val itemList:ArrayList<String>):RecyclerView.Adapter<DashboardRecyclerAdapter.DashboardViewHolder>(){
+class DashboardRecyclerAdapter (val context:Context,val itemList:ArrayList<Book>):RecyclerView.Adapter<DashboardRecyclerAdapter.DashboardViewHolder>(){
     class DashboardViewHolder(view:View):RecyclerView.ViewHolder(view){
 
         val txtBookName:TextView=view.findViewById(R.id.txtBookName)
@@ -36,6 +37,11 @@ class DashboardRecyclerAdapter (val context:Context,val itemList:ArrayList<Strin
     }
 
     override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
-        val text=itemList[position]
+        val book = itemList[position]
+        holder.txtBookName.text = book.bookName
+        holder.txtAuthorName.text = book.bookAuthor
+        holder.txtPrice.text = book.bookPrice
+        holder.txtRating.text = book.bookRating
+        holder.imgBookImage.setImageResource(book.bookImage)
     }
 }
