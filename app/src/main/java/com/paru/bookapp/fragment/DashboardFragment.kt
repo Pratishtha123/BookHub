@@ -6,15 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.paru.bookapp.R
 import com.paru.bookapp.adapter.DashboardRecyclerAdapter
 import com.paru.bookapp.model.Book
+import com.paru.bookapp.util.ConnectionManager
 
 lateinit var recyclerView: RecyclerView
 lateinit var layoutManager:RecyclerView.LayoutManager
 lateinit var recyclerAdapter:DashboardRecyclerAdapter
+lateinit var btnInter:Button
+
 val bookInfoList = arrayListOf<Book>(
                         Book("12","A","B","4.8","890",R.drawable.default_book_cover),
     Book("11","C","M","4","785",R.drawable.default_book_cover),
@@ -41,6 +46,18 @@ class DashboardFargment : Fragment() {
         recyclerView =view.findViewById(
             R.id.recyclerView
         )
+
+        btnInter=view.findViewById(R.id.btnInter)
+        btnInter.setOnClickListener{
+            if (ConnectionManager().checkConnectivity(activity as Context))
+            {
+                Toast.makeText(context,"Internet Available",Toast.LENGTH_LONG).show()
+            }
+            else
+            {
+                Toast.makeText(context,"Internet Not Available",Toast.LENGTH_LONG).show()
+            }
+        }
         layoutManager =LinearLayoutManager(activity)
         recyclerAdapter= DashboardRecyclerAdapter(activity as Context, bookInfoList)
         recyclerView.adapter= recyclerAdapter

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.paru.bookapp.R
 import com.paru.bookapp.activity.Description_Activity
@@ -43,5 +44,9 @@ class DashboardRecyclerAdapter (val context:Context,val itemList:ArrayList<Book>
         holder.txtPrice.text = book.bookPrice
         holder.txtRating.text = book.bookRating
         holder.imgBookImage.setImageResource(book.bookImage)
+
+        holder.rlContent.setOnClickListener{
+            Toast.makeText(context,"Clicked on ${holder.txtBookName.text}",Toast.LENGTH_LONG).show()
+        }
     }
 }
