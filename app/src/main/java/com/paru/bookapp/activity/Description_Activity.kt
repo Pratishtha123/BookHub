@@ -88,6 +88,7 @@ class Description_Activity : AppCompatActivity() {
                         if (success) {
                             val bookJsonObject = it.getJSONObject("book_data")
                             progressLayout.visibility = View.GONE
+                            btnAddToFav.visibility=View.VISIBLE
 
                             val bookImageUrl = bookJsonObject.getString("image")
                             Picasso.get().load(bookJsonObject.getString("image"))
@@ -137,7 +138,6 @@ class Description_Activity : AppCompatActivity() {
                 val settingsIntent= Intent(Settings.ACTION_WIRELESS_SETTINGS)
                 startActivity(settingsIntent)
                 finish()
-
             }
             dialog.setNegativeButton("Exit"){ test,listener->
 

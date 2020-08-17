@@ -117,6 +117,7 @@
         android:background="@color/colorPrimary"
         android:text="@string/add_to_favourites"
         android:textStyle="bold"
+        android:visibility="gone"
         android:textColor="#ffffff"/>
 
     <RelativeLayout
