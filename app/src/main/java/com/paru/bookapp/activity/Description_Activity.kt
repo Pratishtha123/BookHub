@@ -28,7 +28,6 @@ lateinit var txtDescription: TextView
 lateinit var btnAddToFav: Button
 lateinit var progressLayout: RelativeLayout
 lateinit var progressBar: ProgressBar
-lateinit var imgStar: ImageView
 lateinit var dtoolbar: Toolbar
 
 var bookId:String?="100"
@@ -46,7 +45,6 @@ class Description_Activity : AppCompatActivity() {
         imgBookImage = findViewById(R.id.imgBookImage)
         txtDescription = findViewById(R.id.txtDescription)
         btnAddToFav = findViewById(R.id.btnAddToFav)
-        imgStar = findViewById(R.id.imgStar)
         progressBar = findViewById(R.id.progressBar)
 
         progressBar.visibility = View.VISIBLE
@@ -54,7 +52,7 @@ class Description_Activity : AppCompatActivity() {
         progressLayout.visibility = View.VISIBLE
 
         dtoolbar=findViewById(R.id.dtoolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(dtoolbar)
         supportActionBar?.title = "Book Details"
 
         if (intent != null) {
