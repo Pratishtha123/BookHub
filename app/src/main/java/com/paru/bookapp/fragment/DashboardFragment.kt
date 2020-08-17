@@ -1,5 +1,6 @@
 package com.paru.bookapp.fragment
 
+import android.app.DownloadManager
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,30 +11,22 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.paru.bookapp.R
 import com.paru.bookapp.adapter.DashboardRecyclerAdapter
 import com.paru.bookapp.model.Book
 import com.paru.bookapp.util.ConnectionManager
+import java.util.*
 
 lateinit var recyclerView: RecyclerView
 lateinit var layoutManager:RecyclerView.LayoutManager
 lateinit var recyclerAdapter:DashboardRecyclerAdapter
 lateinit var btnInter:Button
 
-val bookInfoList = arrayListOf<Book>(
-                        Book("12","A","B","4.8","890",R.drawable.default_book_cover),
-    Book("11","C","M","4","785",R.drawable.default_book_cover),
-    Book("14","D","N","3.7","490",R.drawable.default_book_cover),
-    Book("2","E","O","4.4","15",R.drawable.default_book_cover),
-    Book("1","F","P","5","350",R.drawable.default_book_cover),
-    Book("18","G","Q","4.1","450",R.drawable.default_book_cover),
-    Book("56","H","R","3.8","620",R.drawable.default_book_cover),
-    Book("78","I","S","4.5","730",R.drawable.default_book_cover),
-    Book("89","J","T","3.9","120",R.drawable.default_book_cover),
-    Book("67","K","U","2.8","250",R.drawable.default_book_cover),
-    Book("98","L","V","4.8","290",R.drawable.default_book_cover)
-    )
-
+val bookInfoList = arrayListOf<Book>()
 class DashboardFargment : Fragment() {
 
     override fun onCreateView(
@@ -59,10 +52,45 @@ class DashboardFargment : Fragment() {
             }
         }
         layoutManager =LinearLayoutManager(activity)
-        recyclerAdapter= DashboardRecyclerAdapter(activity as Context, bookInfoList)
-        recyclerView.adapter= recyclerAdapter
-        recyclerView.layoutManager= layoutManager
 
+
+        val queue=Volley.newRequestQueue(activity as Context)
+        val url="http://13.235.250.119/v1/book/fetch_books/"
+        val jsonObjectRequest= object :JsonObjectRequest(Request.Method.GET,url,null,Response.Listener {
+            val success=it.getBoolean("success")
+            if (success){
+                val data=it.getJSONArray("data")
+                for (i in 0 until data.length()){
+                    val bookJsonObject=data.getJSONObject(i)
+                    val bookObject=Book(
+                        bookJsonObject.getString("book_id"),
+                        bookJsonObject.getString("name"),
+                        bookJsonObject.getString("author"),
+                        bookJsonObject.getString("rating"),
+                        bookJsonObject.getString("price"),
+                        bookJsonObject.getString("image")
+                    )
+                    bookInfoList.add(bookObject)
+                    recyclerAdapter = DashboardRecyclerAdapter(activity as Context, bookInfoList)
+
+                    recyclerView.adapter = recyclerAdapter
+                    recyclerView.layoutManager = layoutManager
+                }
+            }
+            else{
+                Toast.makeText(activity as Context,"Some Error Occurred!",Toast.LENGTH_LONG).show()
+            }
+        },Response.ErrorListener {
+
+        }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Content-type"] = "application/json"
+                headers["token"] = "05ed6a9a010009"
+                return headers
+            }
+        }
+        queue.add(jsonObjectRequest)
 
         return view
     }

@@ -43,7 +43,8 @@ class DashboardRecyclerAdapter (val context:Context,val itemList:ArrayList<Book>
         holder.txtAuthorName.text = book.bookAuthor
         holder.txtPrice.text = book.bookPrice
         holder.txtRating.text = book.bookRating
-        holder.imgBookImage.setImageResource(book.bookImage)
+        //holder.imgBookImage.setImageResource(book.bookImage)
+        Picasso.get().load(book.bookImage).into(holder.imgBookImage)
 
         holder.rlContent.setOnClickListener{
             Toast.makeText(context,"Clicked on ${holder.txtBookName.text}",Toast.LENGTH_LONG).show()
