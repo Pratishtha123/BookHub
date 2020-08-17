@@ -47,7 +47,9 @@ class DashboardRecyclerAdapter (val context:Context,val itemList:ArrayList<Book>
         Picasso.get().load(book.bookImage).error(R.drawable.default_book_cover).into(holder.imgBookImage)
 
         holder.rlContent.setOnClickListener{
-            Toast.makeText(context,"Clicked on ${holder.txtBookName.text}",Toast.LENGTH_LONG).show()
+            val intent=Intent(context,Description_Activity::class.java)
+            intent.putExtra("book_id",book.bookId)
+            context.startActivity(intent)
         }
     }
 }

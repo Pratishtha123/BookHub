@@ -8,4 +8,5 @@
     <string name="list_item1">List Item1</string>
     <string name="name_of_the_author">Name of the Author</string>
     <string name="add_to_favourites">ADD TO FAVOURITES</string>
+    <string name="about_the_book">About the Book</string>
 </resources>
