@@ -12,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,11 +26,14 @@ import com.paru.bookapp.R
 import com.paru.bookapp.adapter.DashboardRecyclerAdapter
 import com.paru.bookapp.model.Book
 import com.paru.bookapp.util.ConnectionManager
+import java.lang.Exception
 import java.util.*
 
 lateinit var recyclerView: RecyclerView
 lateinit var layoutManager:RecyclerView.LayoutManager
 lateinit var recyclerAdapter:DashboardRecyclerAdapter
+lateinit var progressLayout:RelativeLayout
+lateinit var progressBar:ProgressBar
 
 val bookInfoList = arrayListOf<Book>()
 class DashboardFargment : Fragment() {
@@ -43,7 +48,10 @@ class DashboardFargment : Fragment() {
         recyclerView =view.findViewById(
             R.id.recyclerView
         )
-        
+
+        progressLayout=view.findViewById(R.id.progressLayout)
+        progressBar=view.findViewById(R.id.progressBar)
+        progressLayout.visibility=View.VISIBLE
         layoutManager =LinearLayoutManager(activity)
 
 
@@ -52,35 +60,40 @@ class DashboardFargment : Fragment() {
         if (ConnectionManager().checkConnectivity(activity as Context)) {
             val jsonObjectRequest =
                 object : JsonObjectRequest(Request.Method.GET, url, null, Response.Listener {
-                    val success = it.getBoolean("success")
-                    if (success) {
-                        val data = it.getJSONArray("data")
-                        for (i in 0 until data.length()) {
-                            val bookJsonObject = data.getJSONObject(i)
-                            val bookObject = Book(
-                                bookJsonObject.getString("book_id"),
-                                bookJsonObject.getString("name"),
-                                bookJsonObject.getString("author"),
-                                bookJsonObject.getString("rating"),
-                                bookJsonObject.getString("price"),
-                                bookJsonObject.getString("image")
-                            )
-                            bookInfoList.add(bookObject)
-                            recyclerAdapter =
-                                DashboardRecyclerAdapter(activity as Context, bookInfoList)
+                    try {
+                        progressLayout.visibility=View.GONE
+                        val success = it.getBoolean("success")
+                        if (success) {
+                            val data = it.getJSONArray("data")
+                            for (i in 0 until data.length()) {
+                                val bookJsonObject = data.getJSONObject(i)
+                                val bookObject = Book(
+                                    bookJsonObject.getString("book_id"),
+                                    bookJsonObject.getString("name"),
+                                    bookJsonObject.getString("author"),
+                                    bookJsonObject.getString("rating"),
+                                    bookJsonObject.getString("price"),
+                                    bookJsonObject.getString("image")
+                                )
+                                bookInfoList.add(bookObject)
+                                recyclerAdapter =
+                                    DashboardRecyclerAdapter(activity as Context, bookInfoList)
 
-                            recyclerView.adapter = recyclerAdapter
-                            recyclerView.layoutManager = layoutManager
+                                recyclerView.adapter = recyclerAdapter
+                                recyclerView.layoutManager = layoutManager
+                            }
+                        } else {
+                            Toast.makeText(
+                                activity as Context,
+                                "Some Error Occurred!",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                    } else {
-                        Toast.makeText(
-                            activity as Context,
-                            "Some Error Occurred!",
-                            Toast.LENGTH_LONG
-                        ).show()
+                    }catch (e:Exception){
+                        Toast.makeText(activity as Context,"Some Unexpected error occurred!",Toast.LENGTH_LONG).show()
                     }
                 }, Response.ErrorListener {
-
+                    Toast.makeText(activity as Context,"Volley error occurred!",Toast.LENGTH_LONG).show()
                 }) {
                     override fun getHeaders(): MutableMap<String, String> {
                         val headers = HashMap<String, String>()
