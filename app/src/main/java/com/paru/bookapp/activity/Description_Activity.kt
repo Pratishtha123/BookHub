@@ -1,7 +1,9 @@
 package com.paru.bookapp.activity
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -10,11 +12,14 @@ import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.room.Room
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.paru.bookapp.R
+import com.paru.bookapp.database.BookDatabase
+import com.paru.bookapp.database.BookEntity
 import com.paru.bookapp.util.ConnectionManager
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
@@ -146,6 +151,35 @@ class Description_Activity : AppCompatActivity() {
             dialog.create()
             dialog.show()
         }
+    }
+    class DBAsyncTask(val context: Context, val bookEntity: BookEntity, val mode:Int): AsyncTask<Void, Void, Boolean>(){
+        val db= Room.databaseBuilder(context, BookDatabase::class.java,"books-db").build()
 
+        override fun doInBackground(vararg params: Void?): Boolean {
+
+            when(mode){
+
+                1->{
+                    //Check DB if the book is favourite or not
+                    val book:BookEntity?=db.bookDao().getBookById(bookEntity.book_id.toString())
+                    db.close()
+                    return book!=null
+                }
+                2->{
+                    //Save the book in DB as favourite
+                    db.bookDao().insertBook(bookEntity)
+                    db.close()
+                    return true
+                }
+                3->{
+                    //Remove the favourite book
+                    db.bookDao().deleteBook(bookEntity)
+                    db.close()
+                    return true
+                }
+            }
+
+            return false
+        }
     }
 }
