@@ -93,7 +93,9 @@ class DashboardFargment : Fragment() {
                         Toast.makeText(activity as Context,"Some Unexpected error occurred!",Toast.LENGTH_LONG).show()
                     }
                 }, Response.ErrorListener {
-                    Toast.makeText(activity as Context,"Volley error occurred!",Toast.LENGTH_LONG).show()
+                    if (activity!=null){
+                        Toast.makeText(activity as Context,"Volley error occurred!",Toast.LENGTH_LONG).show()
+                    }
                 }) {
                     override fun getHeaders(): MutableMap<String, String> {
                         val headers = HashMap<String, String>()
