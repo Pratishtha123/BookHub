@@ -104,6 +104,85 @@ class Description_Activity : AppCompatActivity() {
                             txtPrice.text = bookJsonObject.getString("price")
                             txtRating.text = bookJsonObject.getString("rating")
                             txtDescription.text = bookJsonObject.getString("description")
+
+                            val bookEntity=BookEntity(
+                                bookId?.toInt()as Int,
+                                txtBookName.text.toString(),
+                                txtAuthorName.text.toString(),
+                                txtPrice.text.toString(),
+                                txtRating.text.toString(),
+                                txtDescription.text.toString(),
+                                bookImageUrl
+                            )
+
+                            val checkFav=DBAsyncTask(applicationContext,bookEntity,1).execute()
+                            val isFav=checkFav.get()
+
+                            if(isFav)
+                            {
+                                btnAddToFav.text="Remove from Favourites"
+                                val favColor=ContextCompat.getColor(applicationContext,R.color.colorFavourite)
+                                btnAddToFav.setBackgroundColor(favColor)
+                            }
+                            else{
+                                btnAddToFav.text="Add to Favourites"
+                                val noFavColor=ContextCompat.getColor(applicationContext,R.color.colorPrimary)
+                                btnAddToFav.setBackgroundColor(noFavColor)
+                            }
+
+                            btnAddToFav.setOnClickListener {
+
+                                if (!DBAsyncTask(applicationContext, bookEntity, 1).execute()
+                                        .get()
+                                ) {
+
+                                    val async =
+                                        DBAsyncTask(applicationContext, bookEntity, 2).execute()
+                                    val result = async.get()
+                                    if (result) {
+                                        Toast.makeText(
+                                            this@Description_Activity,
+                                            "Book added to Favourites",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        btnAddToFav.text = "Remove from Favourites"
+                                        val favColor = ContextCompat.getColor(
+                                            applicationContext,
+                                            R.color.colorFavourite
+                                        )
+                                        btnAddToFav.setBackgroundColor(favColor)
+                                    } else {
+                                        Toast.makeText(
+                                            this@Description_Activity,
+                                            "Some Error Occurred",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                } else {
+                                    val async =
+                                        DBAsyncTask(applicationContext, bookEntity, 3).execute()
+                                    val result = async.get()
+                                    if (result) {
+                                        Toast.makeText(
+                                            this@Description_Activity,
+                                            "Book removed from Favourites",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        btnAddToFav.text = "Add to Favourites"
+                                        val noFavColor = ContextCompat.getColor(
+                                            applicationContext,
+                                            R.color.colorPrimary
+                                        )
+                                        btnAddToFav.setBackgroundColor(noFavColor)
+                                    } else {
+                                        Toast.makeText(
+                                            this@Description_Activity,
+                                            "Some Error Occurred",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
                         } else {
                             Toast.makeText(
                                 this@Description_Activity,
