@@ -31,9 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         drawerLayout =findViewById(R.id.drawerLayout)
-        coordinateLayout =findViewById(
-            R.id.coordinateLayout
-        )
+        coordinateLayout =findViewById(R.id.coordinateLayout)
         toolbar =findViewById(R.id.toolbar)
         frameLayout =findViewById(R.id.frameLayout)
         navigationView =findViewById(R.id.navigationView)
@@ -107,7 +105,7 @@ class MainActivity : AppCompatActivity() {
             R.id.frameLayout,
             DashboardFargment()
         ).commit()
-        supportActionBar?.title="Dashboard"
+        supportActionBar?.title="BookHub"
         navigationView.setCheckedItem(
             R.id.dashboard
         )
