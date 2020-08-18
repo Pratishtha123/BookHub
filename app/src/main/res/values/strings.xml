@@ -12,4 +12,5 @@
     <string name="para">This app displays the list of popular books. You can see the full description of each book. You can also add a book to favourites. The app also has other screens such as a Profile page which will tell you about the developer that made the app and an About App page which will tell you about the app.Enjoy the world of books with this app.</string>
     <string name="para1">BookHub is a fun and easy way to buy, sell and share books around you. Are there old books stacked on your shelf? Or are you tired of reading the same books again and again? We bring you a wide range of collection near you. Read through some of the features below.Sell your old books at BookHub.</string>
     <string name="para2">Book Hub showcases all book genres and all book prices, from fully priced books to discounted books (and 99c books) to free books that readers love to read. We want to make it easy for readers to discover new authors and read great books. New books are added every day in different genres so there is a good read on Book Hub for everyone.</string>
+    <string name="username">Username</string>
 </resources>
