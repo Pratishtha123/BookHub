@@ -111,14 +111,14 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btnAddToFav"
+         android:id="@+id/btnAddToFav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:text="@string/add_to_favourites"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:visibility="gone"
         android:textColor="#ffffff"/>
 
