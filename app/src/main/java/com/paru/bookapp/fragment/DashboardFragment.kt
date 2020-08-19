@@ -2,14 +2,12 @@ package com.paru.bookapp.fragment
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
@@ -36,6 +34,7 @@ class DashboardFargment : Fragment() {
     lateinit var recyclerAdapter:DashboardRecyclerAdapter
     lateinit var progressLayout:RelativeLayout
     lateinit var progressBar:ProgressBar
+
 
     var ratingComparator= Comparator<Book>{book1,book2->
         if(book1.bookRating.compareTo(book2.bookRating,true)==0)
