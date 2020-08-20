@@ -14,4 +14,5 @@
     <string name="para2">Book Hub showcases all book genres and all book prices, from fully priced books to discounted books (and 99c books) to free books that readers love to read. We want to make it easy for readers to discover new authors and read great books. New books are added every day in different genres so there is a good read on Book Hub for everyone.</string>
     <string name="username">Username</string>
     <string name="preference_file_name">Book_App</string>
+    <string name="don_t_have_an_account_signup">Don\'t have an Account? SignUp</string>
 </resources>

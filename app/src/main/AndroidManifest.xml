@@ -14,11 +14,13 @@
         android:roundIcon="@mipmap/ic_new_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.WelcomeActivity"></activity>
+        <activity android:name=".activity.RegisterActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.Description_Activity"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.Splash_Activity"
             android:configChanges="orientation|screenSize"

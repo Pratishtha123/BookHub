@@ -18,6 +18,7 @@
     <item android:title="About App"
         android:icon="@drawable/ic_about"
         android:id="@+id/aboutApp"/>
+
     </group>
 
 </menu>
