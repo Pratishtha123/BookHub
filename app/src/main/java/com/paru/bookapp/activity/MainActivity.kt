@@ -1,10 +1,15 @@
 package com.paru.bookapp.activity
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
@@ -21,6 +26,7 @@ lateinit var coordinateLayout: CoordinatorLayout
 lateinit var toolbar: Toolbar
 lateinit var frameLayout: FrameLayout
 lateinit var navigationView: NavigationView
+lateinit var sharedpreferences: SharedPreferences
 
 var previousMenuItem:MenuItem?=null
 
@@ -29,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedpreferences = getSharedPreferences(getString(R.string.preference_file_name), Context.MODE_PRIVATE)
 
         drawerLayout =findViewById(R.id.drawerLayout)
         coordinateLayout =findViewById(R.id.coordinateLayout)
@@ -58,42 +65,41 @@ class MainActivity : AppCompatActivity() {
             it.isChecked=true
             previousMenuItem =it
 
-            when(it.itemId)
-            {
-                R.id.dashboard ->{
+            when(it.itemId) {
+                R.id.dashboard -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.frameLayout,
                         DashboardFargment()
                     ).commit()
                     drawerLayout.closeDrawers()
-                    supportActionBar?.title="Dashboard"
+                    supportActionBar?.title = "Dashboard"
                 }
 
-                R.id.favourites ->{
+                R.id.favourites -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.frameLayout,
                         FavouritesFragment()
                     ).commit()
                     drawerLayout.closeDrawers()
-                    supportActionBar?.title="Favourites"
+                    supportActionBar?.title = "Favourites"
                 }
 
-                R.id.profile ->{
+                R.id.profile -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.frameLayout,
                         ProfileFragment()
                     ).commit()
                     drawerLayout.closeDrawers()
-                    supportActionBar?.title="Profile"
+                    supportActionBar?.title = "Profile"
                 }
 
-                R.id.aboutApp ->{
+                R.id.aboutApp -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.frameLayout,
                         AboutAppFragment()
                     ).commit()
                     drawerLayout.closeDrawers()
-                    supportActionBar?.title="About App"
+                    supportActionBar?.title = "About App"
                 }
             }
             return@setNavigationItemSelectedListener true
